@@ -1,0 +1,213 @@
+<!DOCTYPE html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="theme" content="Chirpy v2.5.1"><meta name="generator" content="Jekyll v4.1.1" /><meta property="og:title" content="YOU DON’T KNOW JS - 타입과 문법, 스코프와 클로저 (카일 심슨) #24" /><meta name="author" content="PajaritoMoyqi" /><meta property="og:locale" content="en_US" /><meta name="description" content="3-4 달 전에 봤을 때는 진짜 너무 어려워서 잠시 접어두었다가, 최근에 하는 스터디 모임에서 자바스크립트를 기초부터 공부하게 돼서 다시 꺼내서 참고하면서 보았다. 다행히 그동한 깜냥이 쌓였는지 저번보다는 볼만했다." /><meta property="og:description" content="3-4 달 전에 봤을 때는 진짜 너무 어려워서 잠시 접어두었다가, 최근에 하는 스터디 모임에서 자바스크립트를 기초부터 공부하게 돼서 다시 꺼내서 참고하면서 보았다. 다행히 그동한 깜냥이 쌓였는지 저번보다는 볼만했다." /><link rel="canonical" href="http://localhost:4000/posts/0028-B-you-dont-know-javascript-1/" /><meta property="og:url" content="http://localhost:4000/posts/0028-B-you-dont-know-javascript-1/" /><meta property="og:site_name" content="Pajarito 작은새" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2020-11-27T10:51:22+09:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="YOU DON’T KNOW JS - 타입과 문법, 스코프와 클로저 (카일 심슨) #24" /><meta name="twitter:site" content="@twitter_username" /><meta name="twitter:creator" content="@PajaritoMoyqi" /><meta name="google-site-verification" content="google_meta_tag_verification" /> <script type="application/ld+json"> {"datePublished":"2020-11-27T10:51:22+09:00","url":"http://localhost:4000/posts/0028-B-you-dont-know-javascript-1/","dateModified":"2020-11-27T10:51:22+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/0028-B-you-dont-know-javascript-1/"},"@type":"BlogPosting","author":{"@type":"Person","name":"PajaritoMoyqi"},"description":"3-4 달 전에 봤을 때는 진짜 너무 어려워서 잠시 접어두었다가, 최근에 하는 스터디 모임에서 자바스크립트를 기초부터 공부하게 돼서 다시 꺼내서 참고하면서 보았다. 다행히 그동한 깜냥이 쌓였는지 저번보다는 볼만했다.","headline":"YOU DON’T KNOW JS - 타입과 문법, 스코프와 클로저 (카일 심슨) #24","@context":"https://schema.org"}</script><title>YOU DON'T KNOW JS - 타입과 문법, 스코프와 클로저 (카일 심슨) &#35;24 | Pajarito 작은새</title><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico" type="image/x-icon"><link rel="icon" href="/assets/img/favicons/favicon.ico" type="image/x-icon"><link rel="apple-touch-icon" href="/assets/img/favicons/apple-icon.png"><link rel="apple-touch-icon" href="/assets/img/favicons/apple-icon-precomposed.png"><link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicons/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicons/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/manifest.json"><meta name='msapplication-config' content='/assets/img/favicons/browserconfig.xml'><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/img/favicons/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://fonts.gstatic.com"><link rel="preconnect" href="cdn.jsdelivr.net"><link rel="dns-prefetch" href="cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha256-LA89z+k9fjgMKQ/kq4OO2Mrf8VltYml/VES+Rg0fh20=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous"><link rel="preload" as="style" href="/assets/css/post.css"><link rel="stylesheet" href="/assets/css/post.css"><link rel="preload" as="style" href="/assets/css/lib/bootstrap-toc.min.css"><link rel="stylesheet" href="/assets/css/lib/bootstrap-toc.min.css" /> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script> <script async src="https://cdn.jsdelivr.net/combine/npm/popper.js@1.15.0,npm/bootstrap@4/dist/js/bootstrap.min.js"></script> <script async src="/assets/js/post.min.js"></script><body data-spy="scroll" data-target="#toc"><div id="sidebar" class="d-flex flex-column"><div id="nav-wrapper"><div id="profile-wrapper" class="d-flex flex-column"><div id="avatar" class="d-flex justify-content-center"> <a href="/" alt="avatar"> <img src="/assets/img/sample/avatar.jpg" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="profile-text mt-3"><div class="site-title"> <a href="/">Pajarito 작은새</a></div><div class="site-subtitle font-italic">Pajarito 글이 잠자고 있어요.</div></div></div><ul class="nav flex-column"><li class="nav-item d-flex justify-content-center "> <a href="/" class="nav-link d-flex justify-content-center align-items-center w-100"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item d-flex justify-content-center "> <a href="/tabs/categories/" class="nav-link d-flex justify-content-center align-items-center w-100"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item d-flex justify-content-center "> <a href="/tabs/tags/" class="nav-link d-flex justify-content-center align-items-center w-100"> <i class="fa-fw fas fa-tags ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item d-flex justify-content-center "> <a href="/tabs/archives/" class="nav-link d-flex justify-content-center align-items-center w-100"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item d-flex justify-content-center "> <a href="/tabs/about/" class="nav-link d-flex justify-content-center align-items-center w-100"> <i class="fa-fw fas fa-info ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul></div><div class="sidebar-bottom d-flex flex-wrap justify-content-around mt-4"> <span id="mode-toggle-wrapper"> <i class="mode-toggle fas fa-sun" dark-mode-invisible></i> <i class="mode-toggle fas fa-moon" light-mode-invisible></i> <script type="text/javascript"> class ModeToggle { static get MODE_KEY() { return "mode"; } static get DARK_MODE() { return "dark"; } static get LIGHT_MODE() { return "light"; } constructor() { if (this.mode != null) { if (this.mode == ModeToggle.DARK_MODE) { if (!this.isSysDarkPrefer) { this.setDark(); } } else { if (this.isSysDarkPrefer) { this.setLight(); } } } var self = this; /* always follow the system prefers */ this.sysDarkPrefers.addListener(function() { if (self.mode != null) { if (self.mode == ModeToggle.DARK_MODE) { if (!self.isSysDarkPrefer) { self.setDark(); } } else { if (self.isSysDarkPrefer) { self.setLight(); } } self.clearMode(); } }); } /* constructor() */ setDark() { $('html').attr(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); } setLight() { $('html').attr(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); } clearMode() { $('html').removeAttr(ModeToggle.MODE_KEY); sessionStorage.removeItem(ModeToggle.MODE_KEY); } get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); } get isSysDarkPrefer() { return this.sysDarkPrefers.matches; } get isDarkMode() { return this.mode == ModeToggle.DARK_MODE; } get isLightMode() { return this.mode == ModeToggle.LIGHT_MODE; } get hasMode() { return this.mode != null; } get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); } flipMode() { if (this.hasMode) { if (this.isSysDarkPrefer) { if (this.isLightMode) { this.clearMode(); } else { this.setLight(); } } else { if (this.isDarkMode) { this.clearMode(); } else { this.setDark(); } } } else { if (this.isSysDarkPrefer) { this.setLight(); } else { this.setDark(); } } } /* flipMode() */ } /* ModeToggle */ let toggle = new ModeToggle(); $(".mode-toggle").click(function() { toggle.flipMode(); }); </script> </span> <span class="icon-border"></span> <a href="https://github.com/PajaritoMoyqi" aria-label="github" target="_blank" rel="noopener"> <i class="fab fa-github-alt"></i> </a> <a href="https://twitter.com/twitter_username" aria-label="twitter" target="_blank" rel="noopener"> <i class="fab fa-twitter"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['PajaritoMoyqi','protonmail.ch'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper" class="row justify-content-center topbar-down"><div id="topbar" class="col-11 d-flex h-100 align-items-center justify-content-between"> <span id="breadcrumb"> <span> <a href="/"> Posts </a> </span> <span>YOU DON'T KNOW JS - 타입과 문법, 스코프와 클로저 (카일 심슨) &#35;24</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" placeholder="Search..."> <i class="fa fa-times-circle fa-fw" id="search-cleaner"></i> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper"><div id="main"><div class="row"><div id="post-wrapper" class="col-12 col-lg-11 col-xl-8"><div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><h1 data-toc-skip>YOU DON'T KNOW JS - 타입과 문법, 스코프와 클로저 (카일 심슨) &#35;24</h1><div class="post-meta text-muted d-flex flex-column"><div> Posted <span class="timeago " data-toggle="tooltip" data-placement="bottom" title="Fri, Nov 27, 2020, 10:51 AM +0900" > Nov 27 <i class="unloaded">2020-11-27T10:51:22+09:00</i> </span> by <span class="author"> PajaritoMoyqi </span></div></div><div class="post-content"><p>3-4 달 전에 봤을 때는 진짜 너무 어려워서 잠시 접어두었다가, 최근에 하는 스터디 모임에서 자바스크립트를 기초부터 공부하게 돼서 다시 꺼내서 참고하면서 보았다. 다행히 그동한 깜냥이 쌓였는지 저번보다는 볼만했다.</p><p>자바스크립트가 수박이라고 하면 수박을 허연 부분까지 박박 긁어 먹으려고 노력하는 책이다. ‘노력한다’? 그렇다면 그리 깊지 않은 책인가? 그건 아니다. 종종 저자가 ‘책의 지면상 여기서는 생략하고 더 궁금하다면 명세를 살펴보라’고 이야기하는데 그제서야 ‘아 이 책이 자바스크립트 엔진의 모든 것을 다루는 게 아니구나’할 정도로 깊이가 깊다. 매쪽 정신을 차리지 않으면 이해가 안 가서 다시 그 절을 읽고 있는 나 자신을 발견할 수 있다.</p><p>시중에 보면 간혹 자바스크립트의 정수를 다루고 있는 책들을 볼 수 있다. 그런 책들 중 일부는 초보자가 원리부터 이해할 수 있는 책이고 일부는 숙련자만이 그 내용을 자기 것으로 만들 수 있는 책이다. 이 책은 후자에 가깝다. 두 번째 도전만에 성공했지만, 여전히 이해가 가지 않는 부분들이 남아 있다. 몇 달 뒤에 다시 봐야 이해가 되지 싶다.</p><p>그러니 부디 초보자가 공부하기 위해 이 책을 보거나 당장의 문제를 해결하기 위해서 이 책을 보지는 않았으면 좋겠다. 이 책을 보다보면 내가 자바스크립트로 학문을 한다는 느낌을 받는다. 이런 어거지 에러를 볼 일이 있을까? 하는 예시들이 많이 나온다. 반대로 이런 고급진 스킬로 코드를 짜면 내 코드를 다음 사람이(혹은 협업자가) 이해할 수 있을까 하는 생각을 불러일으키는 코드도 많이 나온다. 하지만 코딩을 하다보면 나도 모르게 이런 짓을 할 수도 있고 프로젝트가 커지면 어떤 일이 벌어질지 모르다보니 평소 나 자신의 내공을 쌓기 위해서 공부하면 좋은 책이라는 생각이 든다. 그런 의미에서 책의 내용을 다시 훑어보고 정리하면서 글을 마무리하려고 한다. 처음에는 글만 보고 이해가 되도록 요약하려고 했는데 그러다보니 책을 한 권 쓰겠더라. 그래서 보고 찾아볼 수 있도록 볼만한 키워드들을 정리하는 느낌으로 정리했다.</p><h2 id="1-타입과-문법">(1) 타입과 문법</h2><h3 id="1-타입">1) 타입</h3><ol><li>typeof<div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>  <span class="k">typeof</span> <span class="kd">function</span> <span class="nx">a</span><span class="p">()</span> <span class="p">{}</span>
+</pre></table></code></div></div><li>선언하지 않은 변수는 typeof가 undefined<div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre>  <span class="p">(</span><span class="k">typeof</span> <span class="nx">someVar</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">typeof</span> <span class="nx">someVar</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span>
+</pre></table></code></div></div></ol><h3 id="2-값">2) 값</h3><ol><li>array length<div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>  <span class="nx">arr</span><span class="p">[</span><span class="dl">"</span><span class="s2">foobar</span><span class="dl">"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// possible but no length added.</span>
+</pre></table></code></div></div><li>array 슬롯 건너뛰기<ul><li>length 적용, 가운데 값 undefined.</ul><li>arr[“13”] =&gt; arr[13]<li>number가 유일한 Number type<li>부동소수점과 머신입실론<div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>  <span class="mf">0.1</span><span class="o">+</span><span class="mf">0.2</span> <span class="o">===</span> <span class="mf">0.3</span> <span class="c1">// false</span>
+</pre></table></code></div></div><p>Number.EPSILON, Number.MIN_VALUE, Number.MAX_VALUE, Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER, Math.pow(-2, 31), Math.pow(2, 31)-1</p><li>void __ ; 모든 값을 무효화하여 undefined화.<li>isNaN()<li>-0과 0 변수 값의 이동 방향(0이 되었을 때 잠재적으로 소실될 수 있는 정보)을 보존하기 위한 장치.<li>Object.is()<li>값 복사 / 레퍼런스 복사 전적으로 값의 타입으로 결정된다. 이를 바꾸고 싶다면<div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre>  <span class="nx">a</span><span class="p">.</span><span class="nx">slice</span><span class="p">()</span> <span class="c1">// for ref type</span>
+  <span class="nx">wrapper</span><span class="p">.</span><span class="nx">a</span> <span class="c1">// for val type</span>
+</pre></table></code></div></div></ol><h3 id="3-네이티브">3) 네이티브</h3><ol><li>원시값에 프로퍼티나 메서드를 쓰면 자바스크립트가 알아서 래퍼 객체로 박싱하고 프로퍼티나 메서드를 호출한다.<li>구멍난 배열<div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>  <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1">// [undefined x 3]</span>
+</pre></table></code></div></div><li>리터럴 형식이 있지만 유용한 네이티브 -&gt; new RegExp() // 동적으로 정의할 때<li>Error()와 Array()는 앞에 new가 있든 없든 같은 결과를 만들어낸다.<li>Symbol()은 유일하게 앞에 new가 오면 에러가 나는 네이티브다. 주로 ES6의 특수한 내장 로직에 쓰기 위해 고안되었다. 전용/특수/내부 프로퍼티라는 것을 알리기 위해 써왔던 언더스코어(_)가 Symbol에 의해 대체될 가능성이 있다.<li>문서화 관례에 따르면 String.prototype.XYZ는 String#XYZ로 줄여서 쓴다.</ol><h3 id="4-강제변환">4) 강제변환</h3><ol><li>ToString 객체를 변환하는 경우 toString()을 통해 내부 [[Class]]를 반환한다.<li>JSON 문자열의 경우 toJSON()이 ‘문자열화하기 적당한 JSON 안전 값으로 바꾸고’ JSON.stringify()가 문자열화 처리를 한다.<li>ToNumber 객체를 변환하는 경우 valueOf(), valueOf()가 구현되어 있지 않으면 toString()을 사용한다.<li>ToBoolean falsy 값 : 불리언 값으로 강제변환하면 false를 return하는 값들 명세가 정의한 falsy 값 : undefined, null, false, +0, -0, NaN, “”, 0n falsy 값 이외의 값이 전부 truthy 값.<li>To Primitive<li>~ (틸드) 기본적으로는 2의 보수(complement)를 구하는 연산이다. 연산을 할 경우 입력 값이 -1이면 falsy한 0을 return하고 나머지의 경우 truthy한 값이 산출되는 것이다. -1은 흔히 경계 값이라고 일컬어진다(e.g. indexOf의 산출값). 그럴 때 유용하게 쓰일 수 있다. 혹은 연산자 우선순위를 가진채로 ToInt32 강제변환을 하고 싶을 때 쓰인다.<div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre>  <span class="k">if</span><span class="p">(</span><span class="o">~</span><span class="nx">a</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="dl">'</span><span class="s1">letter</span><span class="dl">'</span><span class="p">){})</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!~</span><span class="nx">a</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="dl">'</span><span class="s1">letter</span><span class="dl">'</span><span class="p">){})</span>
+</pre></table></code></div></div><div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>  <span class="o">~~</span><span class="mi">1</span><span class="nx">E20</span> <span class="o">/</span> <span class="mi">10</span>
+  <span class="mi">1</span><span class="nx">E20</span> <span class="o">|</span> <span class="mi">0</span> <span class="o">/</span> <span class="mi">10</span>
+  <span class="p">(</span><span class="mi">1</span><span class="nx">E20</span> <span class="o">|</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span>
+</pre></table></code></div></div><li>Boolean type으로의 암시변환이 일어나는 경우 if()문의 조건 표현식 for( ; ; )에서 두 번째 조건 표현식 while() 및 do … while() 루프의 조건 표현식 ? : 삼항 연산 시 첫 번째 조건 표현식 || 및 &amp;&amp; 의 좌측 피연산자<li>이 중 || 와 &amp;&amp;는 결과값으로 피연산자들 중 하나를 return한다는 것을 알아야 한다. 둘 중 연산에 결정적인 역할을 한 값을 return한다. 이 특성은 가드 연산자에도 쓰인다. 다음 코드를 보자.<div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre>  <span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="kd">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+  <span class="nx">a</span> <span class="o">&amp;&amp;</span> <span class="nx">foo</span><span class="p">();</span>
+</pre></table></code></div></div><p>코드의 마지막 연산에서 a가 truthy 값인 경우 결정적인 역할을 한 것은 foo()이다(둘 다 true이므로). 그러므로 a를 console.log한다. 반면 a가 falsy인 경우 더 연산이 필요 없기 때문에 a만 return하는데 이러면 foo()는 조용히 실행되지 않는다.</p><li>symbol 값은 문자열로 강제변환은 되며 암시변환은 안 된다. 숫자는 그냥 다 안 된다. 불리언 값으로는 다 되고 항상 true다. 근데 이걸 언제?<li>==과 ===의 정확한 차이는 동등함 비교 시 강제변환을 허용하느냐 아니냐의 차이다. 그리고 ===가 ==보다 몇 마이크로초 정도 차이가 난다. == 비교시 String, Number, Boolean 사이에서는 Number로 변환이 일어나 비교를 한다. // ToNumber()<li>변덕스러워 ‘보이는’ == 변환의 복잡한 이면을 알고 싶지 않다면 다음 두 가지 원칙만 지키면 된다. 피연산자 중 하나가 true/false일 가능성이 있으면 절대로 == 연산자를 쓰지 말자. 피연산자 중 하나가 [], “”, 0이 될 가능성이 있으면 가급적 == 연산자를 쓰지 말자.<li> <와>의 연산의 비교에 있어서 어느 한쪽이라도 문자열이 아니면 ToNumber 강제변환이 일어나서 숫자값으로 만들어 비교한다. 하지만 양쪽 다 문자열이면 각 문자를 단순 어휘(알파벳 순서)로 비교한다. </와></ol><h3 id="5-문법">5) 문법</h3><ol><li>문의 완료값 var 문 자체의 완료값은 undefined다. { } 블록의 완료값은 내부 마지막 문/표현식의 완료 값이다. 문의 완료 값을 포착해서 변수에 할당할 수 있을까?<div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>  <span class="kd">var</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">;</span>
+  <span class="nx">a</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="dl">"</span><span class="s2">if(true){b=4+38}</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nx">a</span><span class="p">;</span> <span class="c1">// 42</span>
+</pre></table></code></div></div><p>ES7에는 절대 사용하지 않아야 할 eval()을 대신해 이런 것이 제안되었다.</p><div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre>  <span class="kd">var</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">;</span>
+  <span class="nx">a</span> <span class="o">=</span> <span class="k">do</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="kc">true</span><span class="p">){</span>
+ <span class="nx">b</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">38</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+  <span class="nx">a</span><span class="p">;</span> <span class="c1">//42</span>
+</pre></table></code></div></div><li>표현식<div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>  <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="o">++</span><span class="p">;</span>
+  <span class="nx">a</span><span class="p">;</span> <span class="c1">// 43</span>
+  <span class="nx">b</span><span class="p">;</span> <span class="c1">// 42</span>
+</pre></table></code></div></div><p>delete 연산자의 결과값은 유효한/허용된 연산인 경우 true 아닌 경우 false다.</p><li>위의 문과 표현식을 잘 이용하면 if문을 줄일 수 있다.<div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre>  <span class="kd">function</span> <span class="nx">vowels</span><span class="p">(</span><span class="nx">str</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">matches</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">str</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">matches</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/</span><span class="se">[</span><span class="sr">aeiou</span><span class="se">]</span><span class="sr">/g</span><span class="p">))){</span>
+ <span class="k">return</span> <span class="nx">matches</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</pre></table></code></div></div><li>레이블문 코드 블록에 이름을 붙여 그 블록을 break로 빠져나갈 수 있다. ```javascript foo: for (var i=0; i&lt;4; i++){ for (var j=0; j&lt;4&gt; j++;){ if((i*j)&gt;=3){ console.log(‘stop!’, i, j); break foo; } console.log(i, j); } }</ol><p>function a(){ b: { console.log(‘hi’); break b; console.log(‘절대 실행 안 됨’); } console.log(‘world’); }</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre>  2. ES6부터는 분해 할당 시 { }를 사용한다.
+  ```javascript
+  function getData(){
+    return {
+      a: 42,
+      b: "foo"
+    }
+  }
+  var {a, b} = getData();
+</pre></table></code></div></div><ol><li>else if는 없다. ```javascript if(a){</ol><p>}else if(b){</p><p>}else{</p><p>}</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre>  위의 구문은 아래와 같이 파싱된다.
+  ```javascript
+  if(a){
+
+  }
+  else{
+    if(b){
+
+    }
+    else{
+
+    }
+  }
+</pre></table></code></div></div><ol><li>연산자 우선순위 &amp;&amp;, ||, ? : 순으로 논리 연산이 이루어진다.<li>결합 &amp;&amp;와 ||는 좌측 결합 연산자다. ? : 와 = 는 우측 결합 연산자다<li>세미콜론 자바스크립트 엔진은 단 하나의 ;라도 누락되면 프로그램을 돌리지 않는다. 하지만 ASI(자동 세미콜론 삽입)이 새 줄(line break) 단위로 파싱을 하다가 에러가 나면 ;를 넣어보고 타당한 것 같으면 ;를 삽입하는 식으로 이런 에러를 방지해준다.<li>try … finally try 문에 return 값이 있으면 finally 문이 실행된 다음에야 return 값이 반환된다. 그런데 finally에도 return 값이 있으면 finally에 있는 return 값만 반환된다. finally 문에서 의도치 않은 에러가 발생하면 그 전 try 문은 다 무시된다.</ol><h2 id="2-스코프와-클로저">(2) 스코프와 클로저</h2><p>1) 스코프란 무엇인가</p><ol><li>컴파일러 이론 토크나이징/렉싱(문자열을 나누어 토큰이라는 의미 있는 조각으로 나누는 과정) - 파싱(문법 구조를 반영하여 트리 형태로 바꾸는 과정) - 코드 생성(실행코드로 바꿈) 자바스크립트 엔진이 기존 컴파일러와 다른 점은 자바스크립트 컴파일레이션을 미리 수행하지 않아서 최적화할 시간이 많지 않다. 엔진 : 컴파일레이션의 시작부터 끝까지 전 과정과 자바스크립트 프로그램 실행을 책임진다. 컴파일러 : 엔진의 친구로 파싱과 코드 생성의 모든 잡일을 도맡아 한다. 스코프 : 엔진의 또 다른 친구로 선언된 모든 변수 검색 목록을 작성하고 유지한다. 엄격한 규칙을 강제해 현재 실행 코드에서 변수 적용 방식을 결정한다. LHS : 값을 넣기 위해 변수 컨테이너 자체를 찾는다. 대입할 대상, RHS : 특정 변수의 값을 찾는 것과 다름이 없다. 대입한 값. b에 대한 RHS 검색이 실패하면 b를 찾을 수 없다. 이렇게 스코프에서 찾지 못한 변수는 선언되지 않은 변수라고 한다. 이 경우 엔진은 ‘ReferenceError’를 발생시킨다. 반면 엔진이 LHS 검색을 하다 최상위 층에 도착해서도 실패하면 프로그램이 Strict Mode가 아니라면 글로벌 스코프는 엔진이 검색하는 이름을 가진 새로운 변수를 생성해서 엔진에게 넘겨준다. 또한 RHS 검색에 성공했으나 그 값으로 불가능한 일을 하려고 하면 TypeError가 발생한다.<li>렉시컬 스코프 렉시컬 스코프란 렉싱 타임(렉싱 처리 과정은 소스 코드 문자열을 분석해 상태 유지 파싱의 결과로 생성된 토큰에 의미를 부여한다)에 정의되는 스코프다. 바꿔 말하면 렉시컬 스코프는 개발자가 코드를 짤 때 변수와 스코프 블록을 어디서 작성하는가에 기초해서 렉서가 코드를 처리할 때 확장된다. 렉시컬 스코프는 함수가 선언된 위치에 따라서 정의된다.<ul><li>렉시컬 속이기 eval() 함수는 문자열을 인자로 받아 실행 시점에 문자열의 내용을 코드의 일부분처럼 처리한다.<div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre>  <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">a</span><span class="p">){</span>
+<span class="nb">eval</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="nx">foo</span><span class="p">(</span><span class="dl">"</span><span class="s2">var b = 3;</span><span class="dl">"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 1, 3</span>
+  <span class="c1">// strict mode에서 실행하면 eval은 자체적인 렉시컬 스코프를 이용한다.</span>
+</pre></table></code></div></div><p>with문도 렉시컬 스코프를 속일 수 있는 방법 중 하나다.</p></ul><li>스코프 안에 숨기는 것의 이점<ul><li>노출 최소화<li>충돌 회피</ul><li>스코프 역할을 하는 함수 / 즉시 실행 함수 ```javascript var a = 2;</ol><p>(function IIFE(){ var a = 3; console.log(a); })();</p><p>console.log(a);</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre>  이렇게 적으면 IIFE라는 이름으로 전역 스코프를 오염시킬 일도 없고 좋다.
+  3. 익명 vs 기명
+  ```javascript
+  setTimeout(function timeoutHandler(){
+    console.log( 'I wanted 1 sec ');
+  }, 1000)
+</pre></table></code></div></div><p>기명으로 쓰는 것의 장점</p><ul><li>스택 추적시 표시할 이름이 생겨 디버깅이 쉬워진다.<li>이름 없이 함수 스스로 재귀 호출을 하려면 폐기 예쩡인 arguments.callee 참조가 필요하다.<li>코드 이해도를 높인다.<ol><li>자바스크립트에서 블록 스코프 사용하기.</ol><li>with<li>try/catch에서 catch 블록<li>let<li>const<ol><li>가비지컬렉션 ```javascript function process(data){ // do something }</ol></ul><p>//anything declared inside this block can go away after. { let someReallyBigData = { … };</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>process(someReallyBigData);   }
+</pre></table></code></div></div><p>var btn = document.getElementById(‘my_button’);</p><p>btn.addEventListener(‘click’, function click(evt){ console.log(‘button clicked’); }, false);</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre><td class="rouge-code"><pre>  click함수가 해당 스코프 전체의 클로저를 가지고 있으므로 someReallyBigData가 전역에 있었으면 가비지 컬렉션의 대상이 될 수 없지만, 여기서는 블록 처리를 함으로써 성능을 향상시켰다.
+  4. 호이스팅
+  호이스팅 과정에서 함수가 먼저 끌어올려지고 그 다음에 변수가 끌어올려진다.
+  함수 선언문은 끌어올려지지만, 함수 표현식은 var foo; 부분만 끌어올려진다.
+  함수 표현식이 이름을 가져도 그 이름 확인자는 해당 스코프에서 찾을 수 없다.
+  5. 클로저
+  예시1
+  ```javascript
+  var fn;
+  
+  function foo(){
+    var a = 2;
+    function baz(){
+      console.log(a);
+    }
+    fn = baz;
+  }
+
+  function bar(){
+    fn();
+  }
+
+  foo();
+
+  bar(); //2
+</pre></table></code></div></div><p>예시2</p><div class="language-javascript highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre>  <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;=</span><span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">j</span><span class="p">){</span> <span class="c1">// var j = i의 역할을 하면서 1000ms 동안 i가 가비지 컬렉션으로 사라지지 않도록 한다.</span>
+      <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="nx">timer</span><span class="p">(){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">j</span><span class="p">);</span>
+      <span class="p">},</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="p">})(</span><span class="nx">i</span><span class="p">);</span>
+  <span class="p">}</span>
+</pre></table></code></div></div><p>물론 예시2는 간단하게 let 키워드를 사용하면 해결이 가능하다.</p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/review/'>Review</a>, <a href='/categories/javascript/'>Javascript</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/javascript/" class="post-tag no-text-decoration" >javascript</a> <a href="/tags/basic/" class="post-tag no-text-decoration" >basic</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=YOU DON'T KNOW JS - 타입과 문법, 스코프와 클로저 (카일 심슨) &#35;24 - Pajarito 작은새&url=http://localhost:4000/posts/0028-B-you-dont-know-javascript-1/" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=YOU DON'T KNOW JS - 타입과 문법, 스코프와 클로저 (카일 심슨) &#35;24 - Pajarito 작은새&u=http://localhost:4000/posts/0028-B-you-dont-know-javascript-1/" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://telegram.me/share?text=YOU DON'T KNOW JS - 타입과 문법, 스코프와 클로저 (카일 심슨) &#35;24 - Pajarito 작은새&url=http://localhost:4000/posts/0028-B-you-dont-know-javascript-1/" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i class="fa-fw fas fa-link small" onclick="copyLink()" data-toggle="tooltip" data-placement="top" title="Copy link"></i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted topbar-down"><div class="access"><div id="access-lastmod" class="post"> <span>Recent Update</span><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/0018-B-tecnic-which-support-coding/">코딩을 지탱하는 기술 (니시오 히로카즈) &#35;16</a></ul></div><div id="access-tags"> <span>Trending Tags</span><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/javascript/">javascript</a> <a class="post-tag" href="/tags/tech-philosophy/">tech philosophy</a> <a class="post-tag" href="/tags/web/">web</a> <a class="post-tag" href="/tags/examples/">examples</a> <a class="post-tag" href="/tags/ai/">ai</a> <a class="post-tag" href="/tags/history/">history</a> <a class="post-tag" href="/tags/nodejs/">nodejs</a> <a class="post-tag" href="/tags/css/">css</a> <a class="post-tag" href="/tags/html/">html</a> <a class="post-tag" href="/tags/security/">security</a></div></div></div><div id="toc-wrapper" class="pl-0 pr-4 mb-5"> <span class="pl-3 pt-2 mb-2">Contents</span><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div class="col-12 col-lg-11 col-xl-8"><div id="post-extend-wrapper" class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><div id="related-posts" class="mt-5 mb-2 mb-sm-4"><h3 class="pt-2 mt-1 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/0021-B-making-responsive-web/"><div class="card-body"> <span class="timeago small" > Nov 23 <i class="unloaded">2020-11-23T22:43:03+09:00</i> </span><h3 class="pt-0 mt-1 mb-3" data-toc-skip>반응형 웹 만들기 (김운아) &#35;19</h3><div class="text-muted small"><p> 지금 다시 생각해보면 내가 혼자 했던 첫 프로젝트는 말 그대로 엉망이었다. 디자인 없이 접근하다보니 CSS와 HTML을 만지는 와중에 디자인을 고민하기 시작했다. 디자인을 고민하다보니 내가 웹사이트의 컨셉 하나 없이 공사를 시작했다는 것을 깨달았다. 만들고자 했던 라우팅 페이지들은 그냥 있을법한 것들을 넣었다보니 컨셉을 잡으면서 날려버리는 일이 생겼다...</p></div></div></a></div><div class="card"> <a href="/posts/0022-B-javascript-security/"><div class="card-body"> <span class="timeago small" > Nov 23 <i class="unloaded">2020-11-23T22:45:29+09:00</i> </span><h3 class="pt-0 mt-1 mb-3" data-toc-skip>자바스크립트 보안 (Y.E 리앙) &#35;20</h3><div class="text-muted small"><p> 다양한 실습 강의들을 보다보면 마지막에 항상 보안 처리를 한다. 보안 처리는 주로 두 개로 나뉜다. 클라이언트 요청에 대한 불신과 서버 응답에 대한 불신이라고 말할 수 있을 것이다. 다양한 방법을 통해 악의적인 공격자는 (서버를 경유하거나 직접 공격하는 식으로) 클라이언트의 UX를 변경하거나 서버에 침투해 DB를 건드릴 수 있기 때문에 항상 요청과 응...</p></div></div></a></div><div class="card"> <a href="/posts/0023-P-poiemaweb/"><div class="card-body"> <span class="timeago small" > Nov 23 <i class="unloaded">2020-11-23T22:48:07+09:00</i> </span><h3 class="pt-0 mt-1 mb-3" data-toc-skip>웹 프로그래밍 튜토리얼 | PoiemaWeb [&#35;1]</h3><div class="text-muted small"><p> 책에 대한 리뷰를 쓰다가 든 생각이다. ‘개발자들은 블로그에서 훨씬 더 많이 공부한다. 책은 한 번 샀다가 책꽂이에서 영영 헤어나오지 못하는 경우가 많다. 블로그는 몇 가지 글을 보다가 아니다 싶으면 뛰쳐나와서 다른 블로그로 들어가면 된다. 블로그는 책보다 가격도 저렴하고 책임져야 할 리스크도 매우 적다. 사람들은 좋은 프로그래밍 블로그에 대한 정보...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/posts/0027-B-web-crawling-using-javascript-and-nodejs/" class="btn btn-outline-primary"><p>자바스크립트와 Node.js를 이용한 웹 크롤링 테크닉 (쿠지라 히코우즈쿠에) &#35;23</p></a> <a href="/posts/0029-B-express-in-action/" class="btn btn-outline-primary"><p>Express 인액션 (에반 M. 한) &#35;25</p></a></div></div></div></div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script> <script type="text/javascript"> const imgs = document.querySelectorAll('#post-wrapper img'); const observer = lozad(imgs); observer.observe(); </script><footer class="d-flex w-100 justify-content-center"><div class="d-flex justify-content-between align-items-center"><div class="footer-left"><p class="mb-0"> © 2020 <a href="https://twitter.com/username">PajaritoMoyqi</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0"> Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy/" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-xl-11 post-content"><div id="search-hints"><h4 class="text-muted mb-4">Trending Tags</h4><a class="post-tag" href="/tags/javascript/">javascript</a> <a class="post-tag" href="/tags/tech-philosophy/">tech philosophy</a> <a class="post-tag" href="/tags/web/">web</a> <a class="post-tag" href="/tags/examples/">examples</a> <a class="post-tag" href="/tags/ai/">ai</a> <a class="post-tag" href="/tags/history/">history</a> <a class="post-tag" href="/tags/nodejs/">nodejs</a> <a class="post-tag" href="/tags/css/">css</a> <a class="post-tag" href="/tags/html/">html</a> <a class="post-tag" href="/tags/security/">security</a></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.3/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="http://localhost:4000{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"><div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>{categories}</div><div><i class="fa fa-tag fa-fw"></i>{tags}</div></div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>' }); </script>
